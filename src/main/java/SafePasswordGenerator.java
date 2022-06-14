@@ -11,8 +11,8 @@ public final class SafePasswordGenerator {
     }
     
     private static char randomChar() {
-        String ascii = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ" + 
-            "[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
+        String ascii = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ" 
+            + "[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
         Random random = new Random();
 
         return ascii.charAt(random.nextInt(ascii.length()));
