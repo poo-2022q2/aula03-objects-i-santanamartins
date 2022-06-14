@@ -1,8 +1,15 @@
 import java.util.Scanner;
 
-public class SafePasswordChecker {
+/**
+ * Check if a password is safe according to fixed criteria.
+ */
+public final class SafePasswordChecker {
 
-    public static boolean hasDigit(String s) {
+    private SafePasswordChecker() {
+
+    }
+
+    private static boolean hasDigit(String s) {
         for (var i = 0; i < s.length(); i++) {
             if (Character.isDigit(s.charAt(i))) {
                 return true;
@@ -12,7 +19,7 @@ public class SafePasswordChecker {
         return false;
     }
 
-    public static boolean hasUpperCase(String s) {
+    private static boolean hasUpperCase(String s) {
         for (var i = 0; i < s.length(); i++) {
             if (Character.isUpperCase(s.charAt(i))) {
                 return true;
@@ -22,7 +29,7 @@ public class SafePasswordChecker {
         return false;
     }
 
-    public static boolean hasLowerCase(String s) {
+    private static boolean hasLowerCase(String s) {
         for (var i = 0; i < s.length(); i++) {
             if (Character.isLowerCase(s.charAt(i))) {
                 return true;
@@ -32,7 +39,7 @@ public class SafePasswordChecker {
         return false;
     }
 
-    public static boolean hasNonAlphanumeric(String s) {
+    private static boolean hasNonAlphanumeric(String s) {
         for (var i = 0; i < s.length(); i++) {
             if (!Character.isAlphabetic(s.charAt(i)) && !Character.isDigit(s.charAt(i))) {
                 return true;
@@ -42,11 +49,18 @@ public class SafePasswordChecker {
         return false;
     }
 
+    /**
+     * Check if the password is safe.
+     * Version that uses multi-pass strategy with helper methods.
+     *
+     * @param password the password
+     * @return true if it is valid, false otherwise
+     */
     public static boolean isSafePassword(String password) {
         if (password.length() < 8) {
             return false;
         }
-        
+
         if (!hasDigit(password)) {
             return false;
         }
@@ -62,22 +76,34 @@ public class SafePasswordChecker {
         return hasNonAlphanumeric(password);
     }
 
+    /**
+     * Check if the password is safe.
+     * This version uses regular expressions.
+     *
+     * @param password the password
+     * @return true if it is valid, false otherwise
+     */
     public static boolean isSafePassword2(String password) {
         return password.length() >= 8
                 && password.matches("\\d+")
-                && password.matches("\\p{Lower}")
-                && password.matches("\\p{Upper}")
-                && password.matches("\\W");
+                && password.matches("\\p{Lower}+")
+                && password.matches("\\p{Upper}+")
+                && password.matches("\\W+");
     }
 
+    /**
+     * The main method.
+     *
+     * @param args the args
+     */
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        try (Scanner scanner = new Scanner(System.in);) {
+            System.out.println("Password: ");
+            var password = scanner.next();
 
-        System.out.println("Password: ");
-        String password = scanner.next();
-        
-        scanner.close();
-        System.out.println(isSafePassword(password) ? "Safe" : "Not safe");
-    
+            System.out.println(isSafePassword(password) ? "Safe" : "Not safe");
+        } catch (Exception e) {
+            throw e;
+        }
     }
 }

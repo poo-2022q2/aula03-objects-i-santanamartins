@@ -1,9 +1,18 @@
 import java.util.Random;
 import java.util.Scanner;
 
-public class SafePasswordGenerator {
+/**
+ * Generate a safe password with the given length.
+ */
+public final class SafePasswordGenerator {
+
+    private SafePasswordGenerator() {
+
+    }
+    
     private static char randomChar() {
-        String ascii = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
+        String ascii = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ" + 
+            "[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
         Random random = new Random();
 
         return ascii.charAt(random.nextInt(ascii.length()));
@@ -19,21 +28,25 @@ public class SafePasswordGenerator {
         return builder.toString();
     }
 
+    /**
+     * The main method.
+     *
+     * @param args the args
+     */
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Password length: ");
+        try (Scanner scanner = new Scanner(System.in);) {
+            System.out.println("Password length: ");
 
-        int passwordSize = scanner.nextInt();
-
-        scanner.close();
-
-        String password = "";
-        
-        while (!SafePasswordChecker.isSafePassword(password)) {
-            password = genPassword(passwordSize);
+            var passwordSize = scanner.nextInt();
+            var password = "";
+            
+            while (!SafePasswordChecker.isSafePassword(password)) {
+                password = genPassword(passwordSize);
+            }
+            System.out.println(password);
+        } catch (Exception e) {
+            throw e;
         }
-
-        System.out.println(password);
 
     }    
 }

@@ -9,11 +9,19 @@ public final class IsbnChecker {
 
     }
 
+    /**
+     * The main method.
+     *
+     * @param args the args
+     */
     public static void main(String[] args) {
-        var scanner = new Scanner(System.in);
-        var isbn = scanner.next();
+        try (var scanner = new Scanner(System.in)) {
+            var isbn = scanner.next();
 
-        scanner.close();
-        System.out.println((IsbnUtils.isValidIsbn(isbn)) ? "Valid" : "Invalid");
+            scanner.close();
+            System.out.println(IsbnUtils.isValidIsbn(isbn) ? "Valid" : "Invalid");
+        } catch (Exception e) {
+            throw e;
+        }        
     }
 }

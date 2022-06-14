@@ -1,7 +1,15 @@
 import java.util.Scanner;
 
-public class ReverseStrings {
-    public static String reverse(String s) {
+/**
+ * Reverse all strings in an array of strings.
+ */
+public final class ReverseStrings {
+
+    private ReverseStrings() {
+
+    }
+
+    private static String reverse(String s) {
         var builder = new StringBuilder();
 
         for (var i = s.length() - 1; i >= 0; i--) {
@@ -11,7 +19,7 @@ public class ReverseStrings {
         return builder.toString();
     }
 
-    public static String[] reverse(String[] strArray) {
+    private static String[] reverse(String[] strArray) {
         var result = new String[strArray.length];
 
         for (var i = 0; i < result.length; i++) {
@@ -21,19 +29,23 @@ public class ReverseStrings {
         return result;
     }
 
-    public static String[] loadArray() {
-        var scanner = new Scanner(System.in);
-        var strArray = new String[scanner.nextInt()];
+    private static String[] loadArray() {
+        var strArray = new String[0];
 
-        scanner.close();
-        for (int i = 0; i < strArray.length; i++) {
-            strArray[i] = scanner.next();
+        try (var scanner = new Scanner(System.in);) {
+            strArray = new String[scanner.nextInt()];
+            
+            for (int i = 0; i < strArray.length; i++) {
+                strArray[i] = scanner.next();
+            }
+        } catch (Exception e) {
+            throw e;
         }
 
         return strArray;
     }
 
-    public static String toString(String[] strArray) {
+    private static String toString(String[] strArray) {
         var builder = new StringBuilder();
 
         for (int i = 0; i < strArray.length; i++) {
@@ -43,6 +55,11 @@ public class ReverseStrings {
         return builder.toString();
     }
 
+    /**
+     * The main method.
+     *
+     * @param args the args
+     */
     public static void main(String[] args) {
         System.out.println(toString(reverse(loadArray())));
     }

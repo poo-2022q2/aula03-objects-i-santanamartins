@@ -1,7 +1,15 @@
 import java.util.Scanner;
 
-public class LetterHistogram {
-    private static final String ascii = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
+/**
+ * Generate the letter histogram for a text.
+ */
+public final class LetterHistogram {
+    private static final String ascii = " !\"#$%&'()*+,-./0123456789:;<=>?@" 
+        + "ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
+
+    private LetterHistogram() {
+
+    }
 
     private static int[] buildHistogram(String s) {
         var histogram = new int[ascii.length()];
@@ -18,15 +26,17 @@ public class LetterHistogram {
     }
 
     private static String loadText() {
-        var scanner = new Scanner(System.in);
         var builder = new StringBuilder();
 
-        scanner.useDelimiter("\n");
-        while (scanner.hasNext()) {
-            builder.append(scanner.next());
+        try (var scanner = new Scanner(System.in);) {
+            scanner.useDelimiter("\n");
+            while (scanner.hasNext()) {
+                builder.append(scanner.next());
+            }    
+        } catch (Exception e) {
+            throw e;
         }
-        scanner.close();
-        
+
         return builder.toString();
     }
 
@@ -46,6 +56,11 @@ public class LetterHistogram {
         return builder.toString();
     }
 
+    /**
+     * The main method.
+     *
+     * @param args the args
+     */
     public static void main(String[] args) {
         System.out.print(formatHistogram(buildHistogram(loadText())));
     }
