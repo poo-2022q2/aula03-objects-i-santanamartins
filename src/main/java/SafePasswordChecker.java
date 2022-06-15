@@ -85,10 +85,10 @@ public final class SafePasswordChecker {
      */
     public static boolean isSafePassword2(String password) {
         return password.length() >= 8
-                && password.matches("\\d+")
-                && password.matches("\\p{Lower}+")
-                && password.matches("\\p{Upper}+")
-                && password.matches("\\W+");
+                && password.matches(".*\\d+.*")
+                && password.matches(".*\\p{Lower}+.*")
+                && password.matches(".*\\p{Upper}+.*")
+                && password.matches(".*\\W+.*");
     }
 
     /**
